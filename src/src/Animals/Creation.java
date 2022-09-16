@@ -2,9 +2,6 @@ package Animals;
 
 public class Creation {
     public static void main(String[] args) {
-        Animal animal = new Animal("Boris");
-        animalCommands(animal);
-
         Pet pet = new Pet("Nick", 5);
         petCommands(pet);
 

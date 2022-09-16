@@ -9,7 +9,6 @@ public class Pet extends Animal {
         this.age = age;
     }
 
-
     public final void eat(){
         System.out.println("Pet is eating ...");
     };
