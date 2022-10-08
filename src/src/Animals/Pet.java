@@ -18,7 +18,6 @@ public class Pet extends Animal {
         System.out.println("Pet is making noise ...");
     };
 
-
     @Override
     public void breath() {
         System.out.println("Pet is breathing ...");
@@ -29,11 +28,5 @@ public class Pet extends Animal {
         System.out.println("Pet is moving ...");
     }
 
-    @Override
-    public String toString() {
-        return "Pet{" +
-                "name='" + name + '\'' +
-                ", age=" + age +
-                '}';
-    }
+
 }
