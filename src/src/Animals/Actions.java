@@ -1,6 +1,6 @@
 package Animals;
 
-interface Actions {
+interface Actions{
     void breath();
 
     void move();

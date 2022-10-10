@@ -1,6 +1,6 @@
 package Animals;
 
-class Dog extends Pet {
+public class Dog extends Pet {
 
     String color;
     double chipNumber;
