@@ -2,86 +2,66 @@ import Animals.Animal;
 import Animals.Dog;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class IOexceptions {
 
 
-    public static void main(String[] args) {
-        String file = "C:\\Users\\Arsenii_Lialchenko\\Documents\\JAVA\\file.txt";
-        IOexceptions io = new IOexceptions();
-//        // write object
-        Animal dogGuffi = new Dog("Guffi", 2, 5, "Grey", 555);
-        Animal dogPenni = new Dog("Penni", 4, 6, "Yellow", 22);
-//        io.writeObject(dogGuffi, file);
-//        io.writeObject(dogPenni, file);
-//        // read objects
-//        io.readObject(file);
+    public static void main(String[] args){
+        String path = "resources/file.txt";
 
-        try {
-            ObjectInputStream oi = new ObjectInputStream(new FileInputStream(file));
-
-            // Read objects
-            Animal pr1 = (Animal) oi.readObject();
-//            Animal pr2 = (Animal) oi.readObject();
-
-            System.out.println(pr1.toString());
-//            System.out.println(pr2.toString());
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void writeObject(Animal animal, String path) {
-        FileOutputStream f = null;
-        ObjectOutputStream o = null;
-        try {
-            f = new FileOutputStream(new File(path));
-            o = new ObjectOutputStream(f);
-            o.writeObject(animal);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                o.close();
-                f.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public void readObject(String path) {
-        try {
-            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(path));
-            ArrayList<Animal> arrayList = new ArrayList<>();
-
-            while (true) {
-                try {
-                    Animal animal = (Animal) ois.readObject();
-                    if (animal == null) {
-                        break;
+        Scanner scanner = new Scanner(System.in);
+        while (scanner.hasNext()) {
+            switch (scanner.nextInt()) {
+                case 1:
+                    System.out.println("New animal was saved");
+                    Animal dogGuffi = new Dog("Guffi", 2, 5, "Grey", 555);
+                    writeObject(dogGuffi, path);
+                    break;
+                case 2:
+                    System.out.println("Show all saved animals from the file");
+                    readObject(path);
+                    break;
+                case 3:
+                    System.out.println("Quit");
+                    scanner.close();
+                    return;
+                default:
+                    try {
+                        throw new MyExpression("You chose invalid number of operation");
+                    } catch (MyExpression e) {
+                        e.printStackTrace();
                     }
-                    arrayList.add(animal);
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
             }
+        }
 
-            for (Animal m : arrayList) {
-                System.out.println(m);
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+    }
+
+    public static void writeObject(Animal animal, String path) {
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(path, true);
+            fileOutputStream.write(animal.toString().getBytes(StandardCharsets.UTF_8));
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public static void readObject(String path) {
+        try {
+            Files.readAllLines(Path.of(path)).forEach(l -> System.out.println(l));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    static class MyExpression extends Exception {
+        public MyExpression(String message) {
+            super(message);
         }
     }
 }
