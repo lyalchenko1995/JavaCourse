@@ -1,18 +1,20 @@
 package Animals;
 
+import java.util.regex.Pattern;
+
 public class Creation {
     public static void main(String[] args) {
-        Pet pet = new Pet("Nick", 5);
-        petCommands(pet);
 
-        Dog dog = new Dog("Guffi", 2, 5, "Grey", 11.5533);
-        dogCommands(dog);
+        Pattern emailPattern = Pattern.compile("\\w+\\@\\D+\\.\\D{0,3}");
+        Pattern phonePattern = Pattern.compile("((\\+7)|7|8)+(\\d{10})");
+        Pattern bookISBNPattern = Pattern.compile("([978|979])+(\\d{10})");
+        Pattern datePattern = Pattern.compile("\\d{4}\\-\\w{3}\\-\\d{2}");
 
-        Cat cat = new Cat("Ars", 11, "bad");
-        catCommands(cat);
+        System.out.println(emailPattern.matcher("lyalchenko2010@yandex.ru").find());
+        System.out.println(phonePattern.matcher("89581741063").find());
+        System.out.println(bookISBNPattern.matcher("9781234567890").find());
+        System.out.println(datePattern.matcher("2022-Oct-17").find());
 
-        System.out.println(cat.animalClass);//final field
-        System.out.println(dog.animalClass);//final field
     }
 
     public static void dogCommands(Dog dog) {
