@@ -10,10 +10,10 @@ public class Creation {
         Pattern bookISBNPattern = Pattern.compile("([978|979])+(\\d{10})");
         Pattern datePattern = Pattern.compile("\\d{4}\\-\\w{3}\\-\\d{2}");
 
-        System.out.println(emailPattern.matcher("lyalchenko2010@yandex.ru").find());
-        System.out.println(phonePattern.matcher("89581741063").find());
-        System.out.println(bookISBNPattern.matcher("9781234567890").find());
-        System.out.println(datePattern.matcher("2022-Oct-17").find());
+        System.out.println(emailPattern.matcher("lyalchenko2010@yandex.ru").matches());
+        System.out.println(phonePattern.matcher("89581741063").matches());
+        System.out.println(bookISBNPattern.matcher("9781234567890").matches());
+        System.out.println(datePattern.matcher("2022-Oct-17").matches());
 
     }
 
