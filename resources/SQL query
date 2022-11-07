@@ -1,0 +1,27 @@
+select * from ArsDB.dbo.[Personal information];
+select * from ArsDB.dbo.[Security];
+select * from ArsDB.dbo.[Employee];
+
+insert into ArsDB.dbo.[Personal information] values ('1', 'Arsenii', 'Lialchenko', '10.10.1995');
+insert into ArsDB.dbo.[Personal information] values ('2', 'Sveta', 'Sokolova', '09.23.1997');
+insert into ArsDB.dbo.Security values ('1', '2021-01-01 01:01:01.000');
+insert into ArsDB.dbo.Security values ('2', '2022-02-02 02:02:02.000');
+insert into ArsDB.dbo.Employee values ('1','5', 'Senior QA', '10000');
+insert into ArsDB.dbo.Employee values ('2','1', 'Junior QA', '50000');
+
+update ArsDB.dbo.[Employee] set Salary = '20000' where id = '1';
+delete from ArsDB.dbo.[Personal information] where id = '1';
+delete from ArsDB.dbo.[Personal information];
+
+select * from ArsDB.dbo.[Personal information] where id between '2' and '3';
+select * from ArsDB.dbo.[Personal information] where id in ('1','2');
+select * from ArsDB.dbo.[Personal information] where id = '1' or id = '2';
+
+select * from ArsDB.dbo.[Personal information] join ArsDB.dbo.Security
+	on ArsDB.dbo.[Personal information].Id = ArsDB.dbo.Security.Id
+	join ArsDB.dbo.Employee
+	on ArsDB.dbo.Security.Id = ArsDB.dbo.Employee.id;
+
+SELECT count(*) + (SELECT count(*) FROM ArsDB.dbo.[Personal information]) + (SELECT count(*) FROM ArsDB.dbo.Security)  AS 'total records' FROM ArsDB.dbo.Employee
+
+select sum(ArsDB.dbo.Employee.Salary) from ArsDB.dbo.Employee;
